@@ -512,6 +512,8 @@ function About() {
               </li>
             ))}
           </ul>
+          <HoursBox />
+
         </div>
       </div>
     </section>
