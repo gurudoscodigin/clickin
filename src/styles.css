@@ -203,9 +203,29 @@
 }
 .float-cursor { animation: float-slow 9s ease-in-out infinite; }
 
+/* Status dot pulse */
+@keyframes status-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.85); }
+}
+.status-dot-live { animation: status-pulse 1.4s ease-in-out infinite; }
+
+/* FAQ details animation */
+@keyframes faq-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+details.faq-item > .faq-answer { animation: faq-in 0.28s ease-out; }
+details.faq-item > summary { list-style: none; cursor: pointer; }
+details.faq-item > summary::-webkit-details-marker { display: none; }
+details.faq-item > summary .faq-icon::before { content: "+"; }
+details.faq-item[open] > summary .faq-icon::before { content: "–"; }
+
 @media (prefers-reduced-motion: reduce) {
   .reveal, .reveal.in-view { animation: none !important; opacity: 1 !important; transform: none !important; }
   .shine-text { animation: none; color: var(--gold); background: none; -webkit-background-clip: initial; background-clip: initial; }
   .float-cursor { animation: none; }
+  .status-dot-live { animation: none; }
+  details.faq-item > .faq-answer { animation: none; }
   html { scroll-behavior: auto; }
 }

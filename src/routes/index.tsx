@@ -314,6 +314,156 @@ function Showcase() {
   );
 }
 
+function Niches() {
+  const items = [
+    { n: "01", t: "Pequenas e médias empresas", d: "Presença digital profissional, sistemas que organizam o negócio e automações que substituem planilhas." },
+    { n: "02", t: "Autônomos e profissionais liberais", d: "Site que gera credibilidade, portfólio online e ferramentas simples para captar e atender clientes." },
+    { n: "03", t: "Startups", d: "MVPs rápidos, sistemas escaláveis e integração entre ferramentas — do zero ao produto no ar." },
+    { n: "04", t: "Agências", d: "Parceiro técnico para entregar o que seus clientes pedem sem precisar montar time próprio de dev." },
+  ];
+  return (
+    <section id="nichos" className="bg-sand-dark py-28">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="reveal mb-16 max-w-2xl">
+          <p className="font-mono-eyebrow text-gold inline-flex items-center gap-3">
+            <span aria-hidden className="inline-block h-px w-8 bg-gold" />
+            para quem é
+          </p>
+          <h2 className="font-display mt-4 text-4xl font-semibold text-ink md:text-5xl">
+            Atendemos quem precisa de tecnologia que funciona.
+          </h2>
+          <p className="mt-6 text-ink/75 leading-relaxed">
+            Do autônomo que quer profissionalizar a presença online até a empresa que precisa automatizar operações inteiras.
+          </p>
+        </div>
+        <div className="grid grid-cols-2 gap-px bg-[#D8CBB0] md:grid-cols-4">
+          {items.map((it) => (
+            <article
+              key={it.n}
+              className="reveal bg-sand-dark p-8 pl-8 transition-all duration-300 hover:bg-[#F2ECE1] hover:pl-11"
+            >
+              <div className="font-mono-eyebrow text-gold">{it.n}</div>
+              <h3 className="font-display mt-6 text-xl font-semibold text-ink md:text-2xl">{it.t}</h3>
+              <p className="mt-4 text-sm text-ink/75 leading-relaxed">{it.d}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function OpenStatusBadge() {
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const compute = () => {
+      // Brasília = UTC-3, no DST
+      const now = new Date();
+      const brasilia = new Date(now.getTime() + (now.getTimezoneOffset() - 180) * 60000);
+      const day = brasilia.getDay();
+      const hour = brasilia.getHours();
+      setOpen(day >= 1 && day <= 5 && hour >= 8 && hour < 18);
+    };
+    compute();
+    const id = window.setInterval(compute, 60000);
+    return () => window.clearInterval(id);
+  }, []);
+  return open ? (
+    <span
+      className="inline-flex items-center gap-2 rounded-full px-2.5 py-1 font-mono text-[12px]"
+      style={{ background: "rgba(34,197,94,0.12)", color: "#166534" }}
+    >
+      <span className="status-dot-live inline-block h-2 w-2 rounded-full bg-[#22c55e]" />
+      Aberto agora
+    </span>
+  ) : (
+    <span
+      className="inline-flex items-center gap-2 rounded-full px-2.5 py-1 font-mono text-[12px]"
+      style={{ background: "rgba(239,68,68,0.10)", color: "#991b1b" }}
+    >
+      <span className="inline-block h-2 w-2 rounded-full bg-[#ef4444]" />
+      Fora do horário
+    </span>
+  );
+}
+
+function HoursBox() {
+  return (
+    <div
+      className="mt-8 rounded-[4px] p-5 md:p-6"
+      style={{ background: "#F2ECE1", border: "1px solid #D8CBB0" }}
+    >
+      <ul className="space-y-3 text-ink/85">
+        <li className="flex items-center gap-3">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="flex-none text-ink/70" aria-hidden>
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 7v5l3 2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span>Segunda a sexta-feira, das 8h às 18h</span>
+        </li>
+        <li className="flex items-center gap-3">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="flex-none text-ink/70" aria-hidden>
+            <path d="M12 21s-7-6.2-7-12a7 7 0 1 1 14 0c0 5.8-7 12-7 12z" strokeLinejoin="round" />
+            <circle cx="12" cy="9" r="2.5" />
+          </svg>
+          <span>Indaiatuba, SP · atendemos todo o Brasil</span>
+        </li>
+        <li className="flex items-center gap-3">
+          <span className="inline-block h-4 w-4" aria-hidden />
+          <OpenStatusBadge />
+        </li>
+      </ul>
+    </div>
+  );
+}
+
+function FAQ() {
+  const faqs = [
+    { q: "O código do meu site ou sistema fica comigo?", a: "Sim, sempre. Tudo que a ClickIn desenvolve é seu — código, arquivos, domínio. Entregamos tudo organizado e você pode levar para outro profissional se quiser." },
+    { q: "Tem mensalidade ou contrato de fidelidade?", a: "Não existe mensalidade obrigatória. Cada projeto é orçado e pago de forma combinada. Se você quiser suporte contínuo ou manutenção, oferecemos planos opcionais — mas é sempre sua escolha." },
+    { q: "Quanto tempo leva para ficar pronto?", a: "Depende do escopo, mas sites institucionais ficam prontos em 2 a 4 semanas. Sistemas e automações variam conforme a complexidade — tudo é combinado com prazo claro antes de começar." },
+    { q: "Posso começar com algo pequeno e ir crescendo?", a: "Com certeza. A maioria dos nossos clientes começa com um site simples ou uma automação pontual e vai expandindo conforme o negócio cresce. Não precisa contratar tudo de uma vez." },
+    { q: "Vocês trabalham com empresas de qual tamanho?", a: "Atendemos desde autônomos e MEIs até médias empresas. Nosso foco é entregar tecnologia que faz sentido pro tamanho e orçamento do seu negócio — sem vender solução maior do que o necessário." },
+    { q: "Como funciona o pagamento?", a: "Geralmente dividido em etapas: uma entrada no início, parcelas durante o desenvolvimento e o saldo na entrega. O formato exato é combinado no orçamento, de acordo com o projeto." },
+    { q: "Precisei de um ajuste depois da entrega. Como funciona?", a: "Todo projeto inclui um período de ajustes após a entrega. Para alterações futuras, podemos combinar um pacote de suporte mensal ou atender por demanda — o que fizer mais sentido pra você." },
+    { q: "Não entendo nada de tecnologia. Consigo trabalhar com vocês?", a: "Esse é exatamente o nosso perfil de cliente. A ClickIn traduz tecnologia para o dia a dia do seu negócio — você não precisa saber programar, só saber o que quer resolver." },
+  ];
+  return (
+    <section id="faq" className="bg-sand-dark py-28">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="reveal mb-16 max-w-2xl">
+          <p className="font-mono-eyebrow text-gold">/ dúvidas frequentes</p>
+          <h2 className="font-display mt-4 text-4xl font-semibold text-ink md:text-5xl">
+            Perguntas que todo cliente faz antes de começar.
+          </h2>
+        </div>
+        <div className="grid gap-px bg-[#D8CBB0] md:grid-cols-2">
+          {faqs.map((f) => (
+            <details
+              key={f.q}
+              className="faq-item group bg-sand-dark transition-colors hover:bg-[#F2ECE1] open:bg-[#F2ECE1]"
+            >
+              <summary className="flex items-center justify-between gap-6 px-7 py-6 font-display text-base font-bold text-ink">
+                <span>{f.q}</span>
+                <span
+                  aria-hidden
+                  className="faq-icon flex h-7 w-7 flex-none items-center justify-center rounded-full border border-ink/25 text-ink/70 transition-colors group-open:border-gold group-open:text-gold"
+                />
+              </summary>
+              <div
+                className="faq-answer px-7 pb-6 text-[14.5px] leading-relaxed"
+                style={{ color: "#3A352F", borderTop: "1px solid #D8CBB0" }}
+              >
+                {f.a}
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function About() {
   return (
     <section id="sobre" className="py-28">
@@ -362,6 +512,8 @@ function About() {
               </li>
             ))}
           </ul>
+          <HoursBox />
+
         </div>
       </div>
     </section>
@@ -476,9 +628,12 @@ function Index() {
         <Hero />
         <Services />
         <Process />
+        <Niches />
         <Showcase />
         <About />
+        <FAQ />
         <FinalCTA />
+
       </main>
       <Footer />
       <FloatingWhats />
