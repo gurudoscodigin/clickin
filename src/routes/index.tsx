@@ -628,9 +628,12 @@ function Index() {
         <Hero />
         <Services />
         <Process />
+        <Niches />
         <Showcase />
         <About />
+        <FAQ />
         <FinalCTA />
+
       </main>
       <Footer />
       <FloatingWhats />
