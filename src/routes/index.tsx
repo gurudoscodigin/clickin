@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "ClickIn — desenvolvimento web, software e automação" },
       {
         property: "og:description",
-        content: "Sites, softwares sob medida e automações. Sua empresa merece um clique de qualidade.",
+        content: "ClickIn cria sites institucionais, softwares sob medida e automações. Sua empresa merece um clique de qualidade.",
       },
     ],
   }),
