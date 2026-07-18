@@ -21,12 +21,11 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-// TODO: substituir pelos dados reais
-const WHATSAPP = "5500000000000";
+const WHATSAPP = "5519974169516";
 const WA_URL = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(
   "Olá! Vim pelo site da ClickIn e gostaria de um orçamento.",
 )}`;
-const EMAIL = "contato@clickin.com.br";
+const EMAIL = "comercialclickin@outlook.com";
 
 function useScrollReveal() {
   useEffect(() => {
