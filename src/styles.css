@@ -228,12 +228,22 @@ details.faq-item > summary::-webkit-details-marker { display: none; }
 details.faq-item > summary .faq-icon::before { content: "+"; }
 details.faq-item[open] > summary .faq-icon::before { content: "–"; }
 
+/* Grid block pulse — product visual */
+@keyframes block-pulse {
+  0%, 100% { opacity: 0.25; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+@utility block-pulse {
+  animation: block-pulse 2.8s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal, .reveal.in-view { animation: none !important; opacity: 1 !important; transform: none !important; }
   .shine-text { animation: none; color: var(--gold); background: none; -webkit-background-clip: initial; background-clip: initial; }
   .float-cursor { animation: none; }
   .status-dot-live { animation: none; }
   .wip-pulse { animation: none; }
+  .block-pulse { animation: none; opacity: 1; transform: none; }
   details.faq-item > .faq-answer { animation: none; }
   html { scroll-behavior: auto; }
 }

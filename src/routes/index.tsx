@@ -293,6 +293,45 @@ function Process() {
   );
 }
 
+function ProductGridVisual() {
+  const cols = 10;
+  const rows = 10;
+  const cells: React.ReactNode[] = [];
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      const v = Math.floor(
+        Math.abs(Math.sin(x * 12.9898 + y * 78.233) * 43758.5453) % 4,
+      );
+      if (v === 0) {
+        cells.push(
+          <div
+            key={`${x}-${y}`}
+            className="h-3 w-3 rounded-[3px] bg-transparent md:h-4 md:w-4"
+          />,
+        );
+      } else {
+        const color =
+          v === 1 ? "bg-sand-dark" : v === 2 ? "bg-ink" : "bg-gold";
+        cells.push(
+          <div
+            key={`${x}-${y}`}
+            className={`h-3 w-3 rounded-[3px] block-pulse ${color} md:h-4 md:w-4`}
+            style={{ animationDelay: `${(x + y) * 90}ms` }}
+          />,
+        );
+      }
+    }
+  }
+  return (
+    <div
+      aria-hidden
+      className="grid grid-cols-10 grid-rows-10 gap-1.5 rounded-2xl border border-ink/10 bg-sand p-5 shadow-sm"
+    >
+      {cells}
+    </div>
+  );
+}
+
 function Products() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "ok" | "error">("idle");
@@ -328,9 +367,7 @@ function Products() {
               "linear-gradient(to right, rgba(26,24,22,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(26,24,22,0.06) 1px, transparent 1px)",
             backgroundSize: "24px 24px",
           }} />
-          <div className="wip-pulse relative">
-            <PixelArrow size={120} />
-          </div>
+          <ProductGridVisual />
           <span
             className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full px-2.5 py-1 font-mono text-[11px]"
             style={{ background: "rgba(201,166,107,0.18)", color: "#7A5A20", border: "1px solid rgba(201,166,107,0.5)" }}
