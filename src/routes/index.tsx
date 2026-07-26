@@ -498,7 +498,7 @@ function Products() {
               "linear-gradient(to right, rgba(26,24,22,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(26,24,22,0.06) 1px, transparent 1px)",
             backgroundSize: "24px 24px",
           }} />
-          <ProductGridVisual />
+          <CodeTypewriter />
           <span
             className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full px-2.5 py-1 font-mono text-[11px]"
             style={{ background: "rgba(201,166,107,0.18)", color: "#7A5A20", border: "1px solid rgba(201,166,107,0.5)" }}
