@@ -233,6 +233,7 @@ details.faq-item[open] > summary .faq-icon::before { content: "–"; }
   .shine-text { animation: none; color: var(--gold); background: none; -webkit-background-clip: initial; background-clip: initial; }
   .float-cursor { animation: none; }
   .status-dot-live { animation: none; }
+  .wip-pulse { animation: none; }
   details.faq-item > .faq-answer { animation: none; }
   html { scroll-behavior: auto; }
 }
