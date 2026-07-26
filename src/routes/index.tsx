@@ -293,6 +293,156 @@ function Process() {
   );
 }
 
+function Products() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "ok" | "error">("idle");
+  const [msg, setMsg] = useState("");
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const value = email.trim();
+    const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    if (!valid) {
+      setStatus("error");
+      setMsg("Digite um e-mail válido.");
+      return;
+    }
+    setStatus("ok");
+    setMsg("Pronto! Você será um dos primeiros a saber.");
+    setEmail("");
+  };
+
+  return (
+    <section id="produtos" className="relative overflow-hidden py-28">
+      <div className="mx-auto grid max-w-6xl gap-14 px-6 md:grid-cols-[1fr_1.1fr] md:items-center">
+        <div
+          className="reveal relative flex aspect-square items-center justify-center overflow-hidden rounded-2xl"
+          style={{
+            background:
+              "linear-gradient(135deg, oklch(0.94 0.02 80) 0%, oklch(0.9 0.035 80) 100%)",
+            border: "1px solid #D8CBB0",
+          }}
+        >
+          <div aria-hidden className="absolute inset-0 opacity-[0.35]" style={{
+            backgroundImage:
+              "linear-gradient(to right, rgba(26,24,22,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(26,24,22,0.06) 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }} />
+          <div className="wip-pulse relative">
+            <PixelArrow size={120} />
+          </div>
+          <span
+            className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full px-2.5 py-1 font-mono text-[11px]"
+            style={{ background: "rgba(201,166,107,0.18)", color: "#7A5A20", border: "1px solid rgba(201,166,107,0.5)" }}
+          >
+            <span className="status-dot-live inline-block h-1.5 w-1.5 rounded-full bg-gold" />
+            em construção
+          </span>
+          <span className="absolute bottom-5 right-5 font-mono-eyebrow text-ink/50">/ produto 01</span>
+        </div>
+
+        <div className="reveal">
+          <p className="font-mono-eyebrow text-gold inline-flex items-center gap-3">
+            <span aria-hidden className="inline-block h-px w-8 bg-gold" />
+            produtos próprios
+          </p>
+          <h2 className="font-display mt-4 text-4xl font-semibold text-ink md:text-5xl">
+            Também construímos nossos <span className="text-gold">próprios produtos</span>.
+          </h2>
+          <p className="mt-6 text-ink/75 leading-relaxed">
+            Além dos projetos sob medida, a ClickIn está desenvolvendo seus próprios produtos —
+            ferramentas pensadas para resolver problemas reais que a gente encontra todo dia.
+            O primeiro já está sendo construído nos bastidores e será anunciado em breve.
+          </p>
+
+          <form onSubmit={onSubmit} className="mt-8 max-w-md" noValidate>
+            <label htmlFor="waitlist-email" className="font-mono-eyebrow text-ink/60">
+              seja o primeiro a saber
+            </label>
+            <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+              <input
+                id="waitlist-email"
+                type="email"
+                required
+                maxLength={255}
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (status !== "idle") setStatus("idle");
+                }}
+                placeholder="voce@empresa.com"
+                className="flex-1 rounded-full border border-ink/25 bg-sand px-5 py-3 text-ink placeholder:text-ink/40 outline-none transition-colors focus:border-gold"
+              />
+              <button
+                type="submit"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-ink px-6 py-3 font-medium text-sand transition-colors hover:bg-ink-deep"
+              >
+                Entrar na lista <span aria-hidden>→</span>
+              </button>
+            </div>
+            {status !== "idle" && (
+              <p
+                role="status"
+                className="mt-3 text-sm"
+                style={{ color: status === "ok" ? "#166534" : "#991b1b" }}
+              >
+                {msg}
+              </p>
+            )}
+            <p className="mt-3 text-xs text-ink/55">
+              Sem spam. Só um e-mail quando o produto estiver pronto.
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Method() {
+  const phases = [
+    { n: "01", t: "Descoberta", d: "Escutamos o problema, o público e o objetivo. Alinhamos escopo, hipóteses e o que precisa ser verdade pra dar certo." },
+    { n: "02", t: "Prototipagem", d: "Rascunhamos telas, fluxos e a arquitetura técnica. Você vê o produto tomando forma antes de uma linha de código final." },
+    { n: "03", t: "Desenvolvimento", d: "Construímos em ciclos curtos, com stack moderna e entregas navegáveis. Feedback contínuo, sem surpresa no fim." },
+    { n: "04", t: "Entrega", d: "Publicamos, documentamos e treinamos o uso. Depois do go-live, seguimos por perto pra evoluir junto com o negócio." },
+  ];
+  return (
+    <section id="metodo" className="bg-sand-dark py-28">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="reveal mb-16 max-w-2xl">
+          <p className="font-mono-eyebrow text-gold inline-flex items-center gap-3">
+            <span aria-hidden className="inline-block h-px w-8 bg-gold" />
+            nosso método
+          </p>
+          <h2 className="font-display mt-4 text-4xl font-semibold text-ink md:text-5xl">
+            Como a ideia vira produto.
+          </h2>
+          <p className="mt-6 text-ink/75 leading-relaxed">
+            Um caminho enxuto, testado em projeto após projeto — o mesmo que aplicamos nos nossos produtos próprios.
+          </p>
+        </div>
+        <div className="grid gap-px bg-[#D8CBB0] md:grid-cols-2 lg:grid-cols-4">
+          {phases.map((p, i) => (
+            <article
+              key={p.n}
+              className="reveal relative bg-sand-dark p-8 transition-colors hover:bg-[#F2ECE1]"
+            >
+              <div className="flex items-center justify-between">
+                <span className="font-mono-eyebrow text-gold">{p.n}</span>
+                {i < phases.length - 1 && (
+                  <span aria-hidden className="hidden text-gold/60 lg:inline">→</span>
+                )}
+              </div>
+              <h3 className="font-display mt-6 text-xl font-semibold text-ink md:text-2xl">{p.t}</h3>
+              <p className="mt-4 text-sm text-ink/75 leading-relaxed">{p.d}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Showcase() {
   return (
     <section className="bg-ink-deep py-32 text-sand">
