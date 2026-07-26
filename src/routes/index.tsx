@@ -293,41 +293,173 @@ function Process() {
   );
 }
 
-function ProductGridVisual() {
-  const cols = 10;
-  const rows = 10;
-  const cells: React.ReactNode[] = [];
-  for (let y = 0; y < rows; y++) {
-    for (let x = 0; x < cols; x++) {
-      const v = Math.floor(
-        Math.abs(Math.sin(x * 12.9898 + y * 78.233) * 43758.5453) % 4,
-      );
-      if (v === 0) {
-        cells.push(
-          <div
-            key={`${x}-${y}`}
-            className="h-3 w-3 rounded-[3px] bg-transparent md:h-4 md:w-4"
-          />,
-        );
+type CodeToken = { t: string; c?: "k" | "s" | "n" | "p" | "c" | "g" };
+type CodeLine = { indent?: number; tokens: CodeToken[] };
+
+const CODE_LINES: CodeLine[] = [
+  { tokens: [{ t: "// build.ts", c: "c" }] },
+  {
+    tokens: [
+      { t: "const", c: "k" },
+      { t: " product " },
+      { t: "=", c: "p" },
+      { t: " build" },
+      { t: "(", c: "p" },
+      { t: ");", c: "p" },
+    ],
+  },
+  {
+    tokens: [
+      { t: "product." },
+      { t: "status", c: "g" },
+      { t: " = " },
+      { t: "'em desenvolvimento'", c: "s" },
+      { t: ";", c: "p" },
+    ],
+  },
+  {
+    tokens: [
+      { t: "product." },
+      { t: "version", c: "g" },
+      { t: " = " },
+      { t: "'0.1.0'", c: "s" },
+      { t: ";", c: "p" },
+    ],
+  },
+  {
+    tokens: [
+      { t: "await", c: "k" },
+      { t: " ship" },
+      { t: "(", c: "p" },
+      { t: "product", c: "g" },
+      { t: ");", c: "p" },
+    ],
+  },
+  { tokens: [{ t: "// em breve →", c: "c" }] },
+];
+
+const TOTAL_CHARS = CODE_LINES.reduce(
+  (n, l) => n + l.tokens.reduce((m, t) => m + t.t.length, 0),
+  0,
+);
+
+function CodeTypewriter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const reduced =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      setCount(TOTAL_CHARS);
+      return;
+    }
+    let n = 0;
+    let holdTicks = 0;
+    const id = window.setInterval(() => {
+      if (n < TOTAL_CHARS) {
+        n += 1;
+        setCount(n);
       } else {
-        const color =
-          v === 1 ? "bg-sand-dark" : v === 2 ? "bg-ink" : "bg-gold";
-        cells.push(
-          <div
-            key={`${x}-${y}`}
-            className={`h-3 w-3 rounded-[3px] block-pulse ${color} md:h-4 md:w-4`}
-            style={{ animationDelay: `${(x + y) * 90}ms` }}
-          />,
-        );
+        holdTicks += 1;
+        if (holdTicks > 40) {
+          n = 0;
+          holdTicks = 0;
+          setCount(0);
+        }
       }
+    }, 55);
+    return () => window.clearInterval(id);
+  }, []);
+
+  // Distribute count across lines/tokens
+  let remaining = count;
+  type Row = { parts: React.ReactNode[]; done: boolean; idx: number };
+  const rendered: Row[] = [];
+  let lineIsActive = false;
+  let activeLineIdx = -1;
+
+  for (let li = 0; li < CODE_LINES.length; li++) {
+    const line = CODE_LINES[li];
+    const lineLen = line.tokens.reduce((m, t) => m + t.t.length, 0);
+    const parts: React.ReactNode[] = [];
+    if (remaining <= 0) {
+      rendered.push({ parts, done: false, idx: li });
+      continue;
+    }
+    let took = 0;
+    for (let ti = 0; ti < line.tokens.length; ti++) {
+      const tok = line.tokens[ti];
+      if (remaining <= 0) break;
+      const take = Math.min(tok.t.length, remaining);
+      const slice = tok.t.slice(0, take);
+      const color =
+        tok.c === "k"
+          ? "text-gold"
+          : tok.c === "s"
+          ? "text-[color:var(--gold-soft)]"
+          : tok.c === "c"
+          ? "text-ink/40"
+          : tok.c === "p"
+          ? "text-ink/60"
+          : tok.c === "g"
+          ? "text-ink"
+          : "text-ink/85";
+      parts.push(
+        <span key={ti} className={color}>
+          {slice}
+        </span>,
+      );
+      remaining -= take;
+      took += take;
+    }
+    const done = took >= lineLen;
+    if (!done) {
+      lineIsActive = true;
+      activeLineIdx = li;
+    }
+    rendered.push({ parts, done, idx: li });
+    if (!done) {
+      // fill rest with empty lines
+      for (let k = li + 1; k < CODE_LINES.length; k++) {
+        rendered.push({ parts: [], done: false, idx: k });
+      }
+      break;
     }
   }
+  if (!lineIsActive) activeLineIdx = CODE_LINES.length - 1;
+
   return (
     <div
       aria-hidden
-      className="grid grid-cols-10 grid-rows-10 gap-1.5 rounded-2xl border border-ink/10 bg-sand p-5 shadow-sm"
+      className="w-[86%] max-w-md overflow-hidden rounded-lg border border-ink/15 bg-[color:var(--ink-deep)] font-mono text-[12px] leading-[1.7] shadow-lg"
     >
-      {cells}
+      <div className="flex items-center gap-2 border-b border-white/10 px-3 py-2">
+        <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+        <span className="ml-2 text-[11px] text-white/50">build.ts</span>
+      </div>
+      <div className="min-h-[180px] px-4 py-3">
+        {rendered.map((r, i) => {
+          const row = r;
+          return (
+            <div key={i} className="flex gap-3">
+              <span className="w-4 select-none text-right text-white/25">
+                {row.idx + 1}
+              </span>
+              <div className="text-white/90">
+                <span className="[&_.text-ink]:!text-white/95 [&_.text-ink\\/85]:!text-white/85 [&_.text-ink\\/60]:!text-white/50 [&_.text-ink\\/40]:!text-white/35">
+                  {row.parts}
+                </span>
+                {row.idx === activeLineIdx && (
+                  <span className="ml-0.5 inline-block h-3 w-1.5 translate-y-[2px] animate-pulse bg-gold align-middle" />
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -367,7 +499,7 @@ function Products() {
               "linear-gradient(to right, rgba(26,24,22,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(26,24,22,0.06) 1px, transparent 1px)",
             backgroundSize: "24px 24px",
           }} />
-          <ProductGridVisual />
+          <CodeTypewriter />
           <span
             className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full px-2.5 py-1 font-mono text-[11px]"
             style={{ background: "rgba(201,166,107,0.18)", color: "#7A5A20", border: "1px solid rgba(201,166,107,0.5)" }}
