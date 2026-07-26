@@ -374,7 +374,8 @@ function CodeTypewriter() {
 
   // Distribute count across lines/tokens
   let remaining = count;
-  const rendered: React.ReactNode[] = [];
+  type Row = { parts: React.ReactNode[]; done: boolean; idx: number };
+  const rendered: Row[] = [];
   let lineIsActive = false;
   let activeLineIdx = -1;
 
