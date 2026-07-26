@@ -384,7 +384,7 @@ function CodeTypewriter() {
     const lineLen = line.tokens.reduce((m, t) => m + t.t.length, 0);
     const parts: React.ReactNode[] = [];
     if (remaining <= 0) {
-      rendered.push({ parts, done: false, idx: li } as never);
+      rendered.push({ parts, done: false, idx: li });
       continue;
     }
     let took = 0;
@@ -418,11 +418,11 @@ function CodeTypewriter() {
       lineIsActive = true;
       activeLineIdx = li;
     }
-    rendered.push({ parts, done, idx: li } as never);
+    rendered.push({ parts, done, idx: li });
     if (!done) {
       // fill rest with empty lines
       for (let k = li + 1; k < CODE_LINES.length; k++) {
-        rendered.push({ parts: [], done: false, idx: k } as never);
+        rendered.push({ parts: [], done: false, idx: k });
       }
       break;
     }
@@ -442,7 +442,7 @@ function CodeTypewriter() {
       </div>
       <div className="min-h-[180px] px-4 py-3">
         {rendered.map((r, i) => {
-          const row = r as { parts: React.ReactNode[]; idx: number };
+          const row = r;
           return (
             <div key={i} className="flex gap-3">
               <span className="w-4 select-none text-right text-white/25">
