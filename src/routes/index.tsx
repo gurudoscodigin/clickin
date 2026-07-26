@@ -776,7 +776,9 @@ function Index() {
       <main>
         <Hero />
         <Services />
+        <Products />
         <Process />
+        <Method />
         <Niches />
         <Showcase />
         <About />
