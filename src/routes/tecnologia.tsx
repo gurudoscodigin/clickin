@@ -342,7 +342,7 @@ function TechPage() {
   return (
     <div className="min-h-screen bg-sand text-ink">
       <PixelCursor />
-      <Header />
+      <Header onDark />
       <main>
         <TechHero />
         <TechServices />

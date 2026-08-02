@@ -36,7 +36,7 @@ export const Route = createFileRoute("/")({
 
 function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden pt-36 pb-28 md:pt-44 md:pb-36">
+    <section id="top" className="relative overflow-hidden pt-36 pb-16 md:pt-44 md:pb-24">
       <div aria-hidden className="pointer-events-none absolute inset-0 hidden md:block">
         <div className="float-cursor absolute left-[10%] top-[30%] opacity-35">
           <PixelArrow size={28} />
