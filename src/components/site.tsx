@@ -83,7 +83,7 @@ function Logo({ collapsed }: { collapsed: boolean }) {
   );
 }
 
-export function Header() {
+export function Header({ onDark = false }: { onDark?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -91,6 +91,8 @@ export function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const dark = onDark && !scrolled;
 
   return (
     <header
@@ -101,18 +103,24 @@ export function Header() {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Logo collapsed={scrolled} />
-        <nav className="hidden items-center gap-8 text-sm text-ink/80 md:flex">
-          <Link to="/" hash="servicos" className="transition-colors hover:text-ink">
+        <div className={dark ? "[&_.text-ink]:text-sand" : ""}>
+          <Logo collapsed={scrolled} />
+        </div>
+        <nav
+          className={`hidden items-center gap-8 text-sm md:flex ${
+            dark ? "text-sand/75" : "text-ink/80"
+          }`}
+        >
+          <Link to="/" hash="servicos" className={`transition-colors ${dark ? "hover:text-sand" : "hover:text-ink"}`}>
             O que fazemos
           </Link>
-          <Link to="/tecnologia" className="transition-colors hover:text-ink">
+          <Link to="/tecnologia" className={`transition-colors ${dark ? "hover:text-sand" : "hover:text-ink"}`}>
             Tecnologia
           </Link>
-          <Link to="/" hash="sobre" className="transition-colors hover:text-ink">
+          <Link to="/" hash="sobre" className={`transition-colors ${dark ? "hover:text-sand" : "hover:text-ink"}`}>
             Sobre
           </Link>
-          <Link to="/" hash="contato" className="transition-colors hover:text-ink">
+          <Link to="/" hash="contato" className={`transition-colors ${dark ? "hover:text-sand" : "hover:text-ink"}`}>
             Contato
           </Link>
         </nav>
@@ -120,7 +128,9 @@ export function Header() {
           href={WA_URL}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-2 text-sm font-medium text-sand transition-colors hover:bg-ink-deep"
+          className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+            dark ? "bg-gold text-ink-deep hover:bg-gold-soft" : "bg-ink text-sand hover:bg-ink-deep"
+          }`}
         >
           fale com a gente <span aria-hidden>→</span>
         </a>
@@ -128,6 +138,7 @@ export function Header() {
     </header>
   );
 }
+
 
 export function Footer() {
   return (
