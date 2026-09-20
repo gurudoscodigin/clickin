@@ -45,18 +45,18 @@
 :root {
   --radius: 0.625rem;
 
-  --sand: oklch(0.945 0.018 80);
-  --sand-dark: oklch(0.895 0.028 80);
-  --ink: oklch(0.22 0.008 60);
-  --ink-deep: oklch(0.155 0.006 60);
-  --gold: oklch(0.745 0.105 78);
-  --gold-soft: oklch(0.83 0.07 80);
+  --sand: oklch(0.975 0.008 150);
+  --sand-dark: oklch(0.93 0.022 150);
+  --ink: #13321f;
+  --ink-deep: #0a1b11;
+  --gold: #6e9273;
+  --gold-soft: #a7c4a0;
 
   --background: var(--sand);
   --foreground: var(--ink);
-  --card: oklch(0.97 0.012 80);
+  --card: oklch(0.97 0.012 150);
   --card-foreground: var(--ink);
-  --popover: oklch(0.97 0.012 80);
+  --popover: oklch(0.97 0.012 150);
   --popover-foreground: var(--ink);
   --primary: var(--ink);
   --primary-foreground: var(--sand);
@@ -68,8 +68,8 @@
   --accent-foreground: var(--ink-deep);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.84 0.022 75);
-  --input: oklch(0.84 0.022 75);
+  --border: oklch(0.84 0.022 150);
+  --input: oklch(0.84 0.022 150);
   --ring: var(--gold);
 }
 
@@ -133,7 +133,7 @@
     100deg,
     var(--gold) 0%,
     var(--gold) 35%,
-    oklch(0.97 0.06 85) 50%,
+    oklch(0.95 0.05 150) 50%,
     var(--gold) 65%,
     var(--gold) 100%
   );
@@ -212,8 +212,8 @@
 
 /* Under-construction pulse for products teaser */
 @keyframes wip-pulse {
-  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(201,166,107,0)); }
-  50% { transform: scale(1.08); filter: drop-shadow(0 0 10px rgba(201,166,107,0.55)); }
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(110,146,115,0)); }
+  50% { transform: scale(1.08); filter: drop-shadow(0 0 10px rgba(110,146,115,0.55)); }
 }
 .wip-pulse { animation: wip-pulse 2.2s ease-in-out infinite; transform-origin: center; }
 

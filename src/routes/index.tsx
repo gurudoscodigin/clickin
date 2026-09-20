@@ -1,15 +1,14 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { PixelCursor, PixelArrow } from "@/components/PixelCursor";
+import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState, type ReactNode } from "react";
+import { PixelArrow, PixelCursor } from "@/components/PixelCursor";
 import {
-  CampaignTerminal,
+  EMAIL,
   Eyebrow,
   Footer,
   FloatingWhats,
   Header,
-  LeadNotification,
-  MetricCard,
-  RotatingCommands,
+  INSTAGRAM_HANDLE,
+  INSTAGRAM_URL,
   useScrollReveal,
   WA_URL,
 } from "@/components/site";
@@ -17,18 +16,20 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ClickIn — agência de marketing com braço tech" },
+      { title: "Gabriel Augusto · fundador da click.in" },
       {
         name: "description",
         content:
-          "Estratégia, conteúdo e tecnologia em um único lugar. A ClickIn transforma marcas em negócios que crescem.",
+          "Portfólio de Gabriel, fundador da click.in. Desenvolvimento de sistemas, automações, plataformas e produtos próprios.",
       },
-      { property: "og:title", content: "ClickIn — agência de marketing com braço tech" },
+      { property: "og:title", content: "Gabriel Augusto · fundador da click.in" },
       {
         property: "og:description",
         content:
-          "Estratégia, conteúdo e tecnologia em um único lugar. A ClickIn transforma marcas em negócios que crescem.",
+          "Sistemas, automações e plataformas construídos do banco de dados até o cliente final.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Index,
@@ -36,213 +37,268 @@ export const Route = createFileRoute("/")({
 
 function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden pt-36 pb-16 md:pt-44 md:pb-24">
+    <section id="top" className="relative min-h-[min(860px,92vh)] overflow-hidden pt-36 pb-20 md:pt-44">
       <div aria-hidden className="pointer-events-none absolute inset-0 hidden md:block">
-        <div className="float-cursor absolute left-[10%] top-[30%] opacity-35">
+        <div className="float-cursor absolute left-[8%] top-[30%] opacity-30">
           <PixelArrow size={28} />
         </div>
-        <div
-          className="float-cursor absolute right-[9%] top-[62%] opacity-25"
-          style={{ animationDelay: "2.4s", animationDuration: "11s" }}
-        >
+        <div className="float-cursor absolute right-[8%] top-[65%] opacity-20 [animation-delay:2.4s] [animation-duration:11s]">
           <PixelArrow size={36} />
         </div>
       </div>
 
-      <div className="mx-auto max-w-5xl px-6 text-center">
-        <p className="font-mono-eyebrow reveal text-ink/70" style={{ animationDelay: "0ms" }}>
-          agência de marketing com braço tech
-        </p>
-
-        <h1
-          className="font-display reveal mt-6 text-4xl font-semibold leading-[1.08] text-ink md:text-6xl"
-          style={{ animationDelay: "120ms" }}
-        >
-          Sua empresa não precisa de mais uma agência. Precisa de uma{" "}
-          <span className="shine-text">estratégia</span> que gere resultados.
-        </h1>
-
-        <p
-          className="reveal mx-auto mt-8 max-w-2xl text-lg text-ink/75 md:text-xl"
-          style={{ animationDelay: "240ms" }}
-        >
-          Na ClickIn, transformamos marcas em negócios que crescem. Estratégia, conteúdo e
-          tecnologia, tudo em um único lugar.
-        </p>
-
-        <div
-          className="reveal mt-10 flex flex-wrap items-center justify-center gap-3"
-          style={{ animationDelay: "360ms" }}
-        >
-          <a
-            href={WA_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 font-medium text-sand transition-colors hover:bg-ink-deep"
-          >
-            Fale com a gente <span aria-hidden>→</span>
-          </a>
-          <a
-            href="#servicos"
-            className="inline-flex items-center gap-2 rounded-full border border-ink/25 px-6 py-3 font-medium text-ink transition-colors hover:border-ink hover:bg-sand-dark"
-          >
-            Ver o que fazemos
-          </a>
+      <div className="relative mx-auto max-w-6xl px-6">
+        <div className="max-w-4xl">
+          <p className="font-mono-eyebrow reveal text-gold">gabriel · fundador da click.in</p>
+          <h1 className="font-display reveal mt-7 text-5xl font-semibold leading-[1.04] text-ink md:text-7xl">
+            Desenvolvimento e automação de quem já colocou <span className="shine-text">produto próprio</span> no ar
+          </h1>
+          <p className="reveal mt-8 max-w-3xl text-lg leading-relaxed text-ink/75 md:text-xl">
+            Sou Gabriel, fundador da click.in. Construo sistemas, automações e plataformas do zero,
+            incluindo os meus próprios produtos, do banco de dados até o cliente final pagando por eles.
+          </p>
+          <div className="reveal mt-10 flex flex-wrap gap-3">
+            <a
+              href="#projetos"
+              className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 font-medium text-sand transition-colors hover:bg-ink-deep"
+            >
+              Ver projetos <span aria-hidden>→</span>
+            </a>
+            <a
+              href={WA_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-ink/25 px-6 py-3 font-medium text-ink transition-colors hover:border-ink hover:bg-sand-dark"
+            >
+              Falar comigo
+            </a>
+          </div>
         </div>
 
-        <div className="reveal mt-12 flex justify-center" style={{ animationDelay: "440ms" }}>
-          <RotatingCommands items={["lançar campanha", "publicar site", "otimizar funil", "captar leads"]} />
+        <div className="reveal mt-16 grid max-w-3xl gap-px bg-border sm:grid-cols-3">
+          {[
+            ["01", "Produto e operação"],
+            ["02", "Código e automação"],
+            ["03", "Entrega ponta a ponta"],
+          ].map(([number, label]) => (
+            <div key={number} className="bg-sand px-5 py-4">
+              <span className="font-mono text-xs text-gold">{number}</span>
+              <p className="mt-1 text-sm font-medium text-ink">{label}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
-function Services() {
-  const items = [
-    {
-      n: "01",
-      t: "Estratégia e posicionamento de marca",
-      d: "Definimos o que sua marca diz, para quem ela fala e por que alguém deveria escolher você.",
-    },
-    {
-      n: "02",
-      t: "Gestão de redes sociais",
-      d: "Presença constante, com pauta, calendário e comunicação alinhada ao objetivo do negócio.",
-    },
-    {
-      n: "03",
-      t: "Tráfego pago",
-      d: "Campanhas com verba controlada, público certo e leitura de resultado sem achismo.",
-    },
-    {
-      n: "04",
-      t: "Criação de conteúdo",
-      d: "Textos, peças e vídeos feitos para atrair atenção e sustentar a decisão de compra.",
-    },
-    {
-      n: "05",
-      t: "Automação de marketing e CRM",
-      d: "Fluxos que respondem, qualificam e acompanham o lead até virar cliente.",
-    },
-  ];
-
+function AboutCard({ label, title, children }: { label: string; title: string; children: ReactNode }) {
   return (
-    <section id="servicos" className="border-y border-[#D8CBB0] bg-sand-dark py-28">
+    <article className="reveal border border-[#CFDDCB] bg-[#E9F0E5] p-8 md:p-10">
+      <p className="font-mono-eyebrow text-gold">{label}</p>
+      <h3 className="font-display mt-5 text-4xl font-semibold text-ink">{title}</h3>
+      <div className="mt-6 space-y-4 leading-relaxed text-ink/75">{children}</div>
+    </article>
+  );
+}
+
+function About() {
+  return (
+    <section id="sobre" className="border-y border-[#CFDDCB] bg-sand-dark py-24 md:py-28">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="grid gap-14 md:grid-cols-[1.1fr_0.9fr] md:items-center">
-          <div className="reveal">
-            <Eyebrow>o que fazemos</Eyebrow>
-            <h2 className="font-display mt-4 text-4xl font-semibold text-ink md:text-5xl">
-              Marketing que atrai clientes, aumenta vendas e fortalece sua marca.
-            </h2>
-            <p className="mt-6 max-w-xl leading-relaxed text-ink/75">
-              Cada entrega nasce de um objetivo claro de negócio. Nada de campanha bonita que não
-              move número nenhum.
+        <div className="reveal mb-14 max-w-3xl">
+          <Eyebrow>duas frentes, uma visão</Eyebrow>
+          <h2 className="font-display mt-5 text-4xl font-semibold text-ink md:text-5xl">
+            Quem constrói e a empresa que transforma ideias em produto.
+          </h2>
+        </div>
+        <div className="grid gap-5 md:grid-cols-2">
+          <AboutCard label="fundador" title="Gabriel">
+            <p>
+              Desenvolvedor com visão de operação. Minha formação em Comércio Exterior pela Fatec
+              Indaiatuba e o trabalho com suporte a expedições na Cipec me ensinaram a enxergar o
+              processo inteiro, não apenas a tela.
             </p>
+            <p>
+              Hoje uno prompt engineering, Git e GitHub, desenvolvimento de produtos e automação de
+              bots para tirar projetos do papel com clareza e velocidade.
+            </p>
+          </AboutCard>
+          <AboutCard label="empresa" title="click.in">
+            <p>
+              A click.in nasceu como software house e evoluiu para uma empresa de tecnologia com
+              identidade dupla.
+            </p>
+            <p>
+              Construímos produtos próprios e também entregamos desenvolvimento, marketing e
+              branding para empresas que precisam colocar uma ideia no mercado ou melhorar uma
+              operação que já existe.
+            </p>
+          </AboutCard>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const projects = [
+  {
+    title: "Toda Bela",
+    badge: "projeto mais recente",
+    description:
+      "Plataforma de agendamento multi categoria de beleza, com pagamento e split integrados para conectar profissionais, estabelecimentos e clientes.",
+    stack: ["Lovable", "Supabase", "Asaas", "Resend", "PWA"],
+    featured: true,
+  },
+  {
+    title: "Sistema de prospecção de leads",
+    description:
+      "Fluxo para organizar oportunidades, acompanhar contatos e automatizar etapas repetitivas da prospecção comercial.",
+    stack: ["Automação", "CRM", "Bots"],
+  },
+  {
+    title: "Sistema de gestão financeira",
+    description:
+      "Controle operacional de entradas, saídas e indicadores para transformar movimentações em decisões mais claras.",
+    stack: ["Dashboard", "Dados", "Integrações"],
+  },
+  {
+    title: "C.MED",
+    description:
+      "Plataforma de saúde privada pensada para organizar jornadas, dados e comunicação em uma experiência única.",
+    stack: ["Plataforma", "Saúde", "Produto"],
+  },
+];
+
+function Projects() {
+  return (
+    <section id="projetos" className="py-24 md:py-28">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="reveal mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div className="max-w-3xl">
+            <Eyebrow>projetos</Eyebrow>
+            <h2 className="font-display mt-5 text-4xl font-semibold text-ink md:text-5xl">
+              Produtos e sistemas que saíram da ideia e viraram operação.
+            </h2>
           </div>
-          <div className="reveal relative flex justify-center md:justify-end">
-            <CampaignTerminal
-              title="campanha.sh"
-              lines={[
-                { text: "$ clickin start", tone: "gold" },
-                { text: "instalando estratégia...", tone: "muted" },
-                { text: "compilando conteúdo...", tone: "muted" },
-                { text: "configurando tráfego pago...", tone: "muted" },
-                { text: "publicando campanha...", tone: "base" },
-                { text: "sucesso. resultado no ar.", tone: "ok" },
-              ]}
-            />
-            <MetricCard
-              label="tráfego"
-              value="+147%"
-              className="absolute -bottom-6 left-0 hidden md:block"
-            />
-          </div>
+          <p className="font-mono text-xs text-ink/55">seleção 2024 · 2026</p>
         </div>
 
-        <div className="mt-16 grid gap-px bg-[#D8CBB0] sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((it) => (
+        <div className="grid gap-5 md:grid-cols-2">
+          {projects.map((project, index) => (
             <article
-              key={it.n}
-              className="reveal bg-sand-dark p-8 transition-all duration-300 hover:bg-[#F2ECE1] hover:pl-11"
+              key={project.title}
+              className={`reveal relative overflow-hidden border p-8 transition-transform duration-300 hover:-translate-y-1 md:p-10 ${
+                project.featured
+                  ? "border-gold bg-ink-deep text-sand md:col-span-2"
+                  : "border-[#CFDDCB] bg-[#E9F0E5] text-ink"
+              }`}
             >
-              <div className="font-mono-eyebrow text-gold">{it.n}</div>
-              <h3 className="font-display mt-6 text-xl font-semibold text-ink md:text-2xl">{it.t}</h3>
-              <p className="mt-4 text-sm leading-relaxed text-ink/75">{it.d}</p>
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <span className={`font-mono text-xs ${project.featured ? "text-gold-soft" : "text-gold"}`}>
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                {project.badge && (
+                  <span className="rounded-full border border-gold/50 bg-gold/10 px-3 py-1 font-mono text-[11px] text-gold-soft">
+                    {project.badge}
+                  </span>
+                )}
+              </div>
+              <h3 className="font-display mt-10 text-3xl font-semibold md:text-4xl">{project.title}</h3>
+              <p className={`mt-5 max-w-3xl leading-relaxed ${project.featured ? "text-sand/70" : "text-ink/70"}`}>
+                {project.description}
+              </p>
+              <div className="mt-8 flex flex-wrap gap-2">
+                {project.stack.map((item) => (
+                  <span
+                    key={item}
+                    className={`rounded-full border px-3 py-1 font-mono text-[11px] ${
+                      project.featured ? "border-sand/20 text-sand/70" : "border-ink/15 text-ink/60"
+                    }`}
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
             </article>
           ))}
-          <div className="reveal flex flex-col justify-between bg-sand-dark p-8">
-            <LeadNotification />
-            <p className="mt-6 text-sm leading-relaxed text-ink/70">
-              A automação avisa o time no segundo em que um lead chega. Ninguém esfria esperando
-              resposta.
-            </p>
-          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function TechBridge() {
-  return (
-    <section className="relative overflow-hidden bg-ink-deep py-28 text-sand">
-      <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.07]" style={{
-        backgroundImage:
-          "linear-gradient(to right, #F2ECE1 1px, transparent 1px), linear-gradient(to bottom, #F2ECE1 1px, transparent 1px)",
-        backgroundSize: "40px 40px",
-      }} />
-      <div className="relative mx-auto max-w-3xl px-6 text-center">
-        <p className="font-mono-eyebrow reveal inline-flex items-center gap-3 text-gold">
-          <span aria-hidden className="inline-block h-px w-8 bg-gold" />
-          quando o marketing não basta
-        </p>
-        <h2 className="font-display reveal mt-6 text-4xl font-semibold leading-tight md:text-6xl">
-          A tecnologia entra em ação.
-        </h2>
-        <p className="reveal mt-8 text-lg text-sand/75 md:text-xl">
-          Desenvolvemos sites de alta performance, landing pages e softwares personalizados para
-          automatizar processos, otimizar a gestão e acelerar o crescimento do seu negócio.
-        </p>
-        <div className="reveal mt-10">
-          <Link
-            to="/tecnologia"
-            className="inline-flex items-center gap-2 rounded-full border border-gold/70 px-6 py-3 font-medium text-gold transition-colors hover:bg-gold hover:text-ink-deep"
-          >
-            Conhecer o braço tech <span aria-hidden>→</span>
-          </Link>
-        </div>
-      </div>
-    </section>
-  );
-}
+const technologyGroups = [
+  ["Frontend", "React · TypeScript · Tailwind"],
+  ["Backend e dados", "Supabase · PostgreSQL · APIs"],
+  ["Pagamentos", "Asaas · split · webhooks"],
+  ["Deploy", "Cloudflare · Vercel · PWA"],
+  ["Automação", "Bots · integrações · workflows"],
+  ["IA aplicada", "Prompt engineering · agentes"],
+  ["Comunicação", "Resend · WhatsApp · CRM"],
+  ["Prototipagem", "Lovable · Figma · validação"],
+];
 
-function Integration() {
-  const blocks = ["Marketing.", "Tecnologia.", "Performance."];
+function Technologies() {
   return (
-    <section
-      className="py-28"
-      style={{
-        background:
-          "linear-gradient(135deg, oklch(0.945 0.018 80) 0%, oklch(0.9 0.035 80) 100%)",
-      }}
-    >
-      <div className="mx-auto max-w-5xl px-6 text-center">
-        <div className="space-y-2">
-          {blocks.map((b, i) => (
-            <h2
-              key={b}
-              className="font-display reveal text-5xl font-semibold leading-[1.05] text-ink md:text-7xl"
-              style={{ animationDelay: `${i * 120}ms`, color: i === 1 ? "var(--gold)" : undefined }}
-            >
-              {b}
-            </h2>
+    <section className="bg-ink-deep py-24 text-sand md:py-28">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="reveal max-w-3xl">
+          <p className="font-mono-eyebrow inline-flex items-center gap-3 text-gold-soft">
+            <span aria-hidden className="inline-block h-px w-8 bg-gold" />
+            tecnologias
+          </p>
+          <h2 className="font-display mt-5 text-4xl font-semibold md:text-5xl">
+            A ferramenta certa para cada parte do produto.
+          </h2>
+          <p className="mt-6 text-lg text-sand/65">
+            Da interface ao pagamento, cada escolha serve à experiência e à operação.
+          </p>
+        </div>
+        <div className="mt-14 grid border-l border-t border-sand/15 sm:grid-cols-2 lg:grid-cols-4">
+          {technologyGroups.map(([title, tools], index) => (
+            <article key={title} className="reveal min-h-44 border-r border-b border-sand/15 p-6">
+              <span className="font-mono text-xs text-gold">{String(index + 1).padStart(2, "0")}</span>
+              <h3 className="font-display mt-7 text-xl font-semibold">{title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-sand/60">{tools}</p>
+            </article>
           ))}
         </div>
-        <p className="reveal mt-10 text-lg text-ink/75 md:text-xl">
-          Tudo integrado em um único lugar.
-        </p>
+      </div>
+    </section>
+  );
+}
+
+const steps = [
+  ["Planejamento", "Objetivo, contexto, prioridade e escopo definidos antes de construir."],
+  ["Desenho", "Fluxos e telas organizam a experiência e tornam a solução visível."],
+  ["Desenvolvimento", "O produto ganha vida em ciclos curtos, com decisões documentadas."],
+  ["Teste", "Cenários reais validam funcionamento, clareza e segurança antes da publicação."],
+  ["Entrega", "Publicação, orientação de uso e acompanhamento para a operação começar bem."],
+];
+
+function Process() {
+  return (
+    <section id="processo" className="border-b border-[#CFDDCB] bg-sand-dark py-24 md:py-28">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="reveal mb-14 max-w-3xl">
+          <Eyebrow>processo</Eyebrow>
+          <h2 className="font-display mt-5 text-4xl font-semibold text-ink md:text-5xl">
+            Da primeira conversa ao produto em uso.
+          </h2>
+        </div>
+        <div className="grid gap-px bg-[#CFDDCB] sm:grid-cols-2 lg:grid-cols-5">
+          {steps.map(([title, description], index) => (
+            <article key={title} className="reveal min-h-64 bg-sand-dark p-7 transition-colors hover:bg-[#E9F0E5]">
+              <div className="flex items-center justify-between">
+                <span className="font-mono-eyebrow text-gold">{String(index + 1).padStart(2, "0")}</span>
+                {index < steps.length - 1 && <span className="hidden text-gold/60 lg:block">→</span>}
+              </div>
+              <h3 className="font-display mt-10 text-xl font-semibold text-ink">{title}</h3>
+              <p className="mt-4 text-sm leading-relaxed text-ink/70">{description}</p>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -250,212 +306,69 @@ function Integration() {
 
 function OpenStatusBadge() {
   const [open, setOpen] = useState(false);
+
   useEffect(() => {
     const compute = () => {
-      const now = new Date();
-      const brasilia = new Date(now.getTime() + (now.getTimezoneOffset() - 180) * 60000);
-      const day = brasilia.getDay();
-      const hour = brasilia.getHours();
-      setOpen(day >= 1 && day <= 5 && hour >= 8 && hour < 18);
+      const parts = new Intl.DateTimeFormat("pt-BR", {
+        timeZone: "America/Sao_Paulo",
+        weekday: "short",
+        hour: "2-digit",
+        hourCycle: "h23",
+      }).formatToParts(new Date());
+      const weekday = parts.find((part) => part.type === "weekday")?.value ?? "";
+      const hour = Number(parts.find((part) => part.type === "hour")?.value ?? 0);
+      setOpen(!weekday.startsWith("sáb") && !weekday.startsWith("dom") && hour >= 8 && hour < 18);
     };
     compute();
     const id = window.setInterval(compute, 60000);
     return () => window.clearInterval(id);
   }, []);
-  return open ? (
-    <span
-      className="inline-flex items-center gap-2 rounded-full px-2.5 py-1 font-mono text-[12px]"
-      style={{ background: "rgba(34,197,94,0.12)", color: "#166534" }}
-    >
-      <span className="status-dot-live inline-block h-2 w-2 rounded-full bg-[#22c55e]" />
-      Aberto agora
-    </span>
-  ) : (
-    <span
-      className="inline-flex items-center gap-2 rounded-full px-2.5 py-1 font-mono text-[12px]"
-      style={{ background: "rgba(239,68,68,0.10)", color: "#991b1b" }}
-    >
-      <span className="inline-block h-2 w-2 rounded-full bg-[#ef4444]" />
-      Fora do horário
+
+  return (
+    <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-xs ${open ? "bg-[#DCF1DF] text-[#245C32]" : "bg-[#F5E1DF] text-[#8A3029]"}`}>
+      <span className={`inline-block h-2 w-2 rounded-full ${open ? "status-dot-live bg-[#3B8A4D]" : "bg-[#B84A40]"}`} />
+      {open ? "Aberto agora" : "Fora do horário"}
     </span>
   );
 }
 
-function HoursBox() {
-  return (
-    <div className="mt-8 rounded-[4px] p-5 md:p-6" style={{ background: "#F2ECE1", border: "1px solid #D8CBB0" }}>
-      <ul className="space-y-3 text-ink/85">
-        <li className="flex items-center gap-3">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="flex-none text-ink/70" aria-hidden>
-            <circle cx="12" cy="12" r="9" />
-            <path d="M12 7v5l3 2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-          <span>Segunda a sexta-feira, das 8h às 18h</span>
-        </li>
-        <li className="flex items-center gap-3">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="flex-none text-ink/70" aria-hidden>
-            <path d="M12 21s-7-6.2-7-12a7 7 0 1 1 14 0c0 5.8-7 12-7 12z" strokeLinejoin="round" />
-            <circle cx="12" cy="9" r="2.5" />
-          </svg>
-          <span>Indaiatuba, SP · atendemos todo o Brasil</span>
-        </li>
-        <li className="flex items-center gap-3">
-          <span className="inline-block h-4 w-4" aria-hidden />
-          <OpenStatusBadge />
-        </li>
-      </ul>
-    </div>
-  );
-}
-
-function About() {
-  return (
-    <section id="sobre" className="py-28">
-      <div className="mx-auto grid max-w-6xl gap-12 px-6 md:grid-cols-2 md:items-center">
-        <div
-          className="reveal relative overflow-hidden rounded-2xl p-10 md:p-14"
-          style={{
-            background:
-              "linear-gradient(135deg, oklch(0.92 0.04 80) 0%, oklch(0.86 0.07 78) 60%, oklch(0.78 0.1 78) 100%)",
-          }}
-        >
-          <p className="font-mono-eyebrow text-ink-deep/70">/ agência</p>
-          <div className="font-display mt-8 text-6xl font-semibold leading-none text-ink-deep md:text-7xl">
-            desde
-            <br />
-            2024
-          </div>
-          <p className="mt-8 max-w-xs font-mono-eyebrow text-ink-deep/70">Indaiatuba · SP</p>
-        </div>
-
-        <div className="reveal">
-          <Eyebrow tone="muted">sobre a clickin</Eyebrow>
-          <h2 className="font-display mt-4 text-4xl font-semibold text-ink md:text-5xl">
-            Uma agência enxuta, com foco em resultado.
-          </h2>
-          <p className="mt-6 leading-relaxed text-ink/75">
-            A ClickIn cuida da estratégia, do conteúdo e das campanhas da sua marca. Quando o
-            marketing sozinho não resolve, o nosso braço de tecnologia entra para construir o que
-            faltava. Sem processo travado, sem estrutura inflada.
-          </p>
-          <ul className="mt-8 space-y-3">
-            {[
-              "Estratégia guiada por número, não por achismo",
-              "Comunicação direta, você fala com quem executa",
-              "Time de marketing e time de tecnologia na mesma mesa",
-            ].map((b) => (
-              <li key={b} className="flex items-start gap-3 text-ink/85">
-                <span className="mt-1 inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-gold text-ink-deep">
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                    <path d="M2.5 6.2l2.3 2.3 4.7-4.7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-                {b}
-              </li>
-            ))}
-          </ul>
-          <HoursBox />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FAQ() {
-  const faqs = [
-    {
-      q: "Preciso contratar marketing e tecnologia juntos?",
-      a: "Não. Você pode começar só pelo marketing. A tecnologia entra quando fizer sentido para o seu objetivo.",
-    },
-    {
-      q: "Tem contrato de fidelidade?",
-      a: "As campanhas seguem um ciclo mensal combinado, e projetos pontuais são orçados à parte. Você sempre sabe o que está contratando.",
-    },
-    {
-      q: "Em quanto tempo eu vejo resultado?",
-      a: "Tráfego pago costuma dar leitura já nas primeiras semanas. Posicionamento e conteúdo constroem resultado em prazo mais longo, e a gente acompanha isso junto com você.",
-    },
-    {
-      q: "O que a ClickIn desenvolve fica comigo?",
-      a: "Sim, sempre. Site, sistema, domínio e contas de anúncio ficam no seu nome.",
-    },
-    {
-      q: "Vocês atendem empresas de qual tamanho?",
-      a: "De autônomos e MEIs a médias empresas. Ajustamos o escopo ao tamanho e ao orçamento do negócio.",
-    },
-    {
-      q: "Posso começar pequeno e crescer depois?",
-      a: "Pode. A maioria começa com uma frente só e vai ampliando conforme os resultados aparecem.",
-    },
-    {
-      q: "Como funciona o pagamento?",
-      a: "Serviços recorrentes são mensais. Projetos têm entrada, parcelas durante a execução e saldo na entrega.",
-    },
-    {
-      q: "Não entendo nada de marketing nem de tecnologia. Consigo trabalhar com vocês?",
-      a: "Esse é exatamente o nosso perfil de cliente. A gente traduz tudo para a linguagem do seu dia a dia.",
-    },
+function Contact() {
+  const contacts = [
+    { label: "WhatsApp", value: "19 97416 9516", href: WA_URL, external: true },
+    { label: "Email", value: EMAIL, href: `mailto:${EMAIL}` },
+    { label: "Instagram", value: INSTAGRAM_HANDLE, href: INSTAGRAM_URL, external: true },
   ];
   return (
-    <section id="faq" className="border-y border-[#D8CBB0] bg-sand-dark py-28">
+    <section id="contato" className="py-24 md:py-28">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="reveal mb-16 max-w-2xl">
-          <Eyebrow>dúvidas frequentes</Eyebrow>
-          <h2 className="font-display mt-4 text-4xl font-semibold text-ink md:text-5xl">
-            Perguntas que todo cliente faz antes de começar.
-          </h2>
+        <div className="reveal flex flex-col justify-between gap-8 md:flex-row md:items-end">
+          <div className="max-w-3xl">
+            <Eyebrow>contato</Eyebrow>
+            <h2 className="font-display mt-5 text-4xl font-semibold text-ink md:text-6xl">
+              Tem uma ideia, um gargalo ou um produto para colocar no ar?
+            </h2>
+          </div>
+          <div className="flex flex-col items-start gap-2 md:items-end">
+            <OpenStatusBadge />
+            <p className="font-mono text-xs text-ink/50">segunda a sexta · 8h às 18h · Brasília</p>
+          </div>
         </div>
-        <div className="grid gap-px bg-[#D8CBB0] md:grid-cols-2">
-          {faqs.map((f) => (
-            <details key={f.q} className="faq-item group bg-sand-dark transition-colors hover:bg-[#F2ECE1] open:bg-[#F2ECE1]">
-              <summary className="flex items-center justify-between gap-6 px-7 py-6 font-display text-base font-bold text-ink">
-                <span>{f.q}</span>
-                <span
-                  aria-hidden
-                  className="faq-icon flex h-7 w-7 flex-none items-center justify-center rounded-full border border-ink/25 text-ink/70 transition-colors group-open:border-gold group-open:text-gold"
-                />
-              </summary>
-              <div
-                className="faq-answer px-7 pb-6 text-[14.5px] leading-relaxed"
-                style={{ color: "#3A352F", borderTop: "1px solid #D8CBB0" }}
-              >
-                {f.a}
+        <div className="mt-14 grid gap-4 md:grid-cols-3">
+          {contacts.map((contact) => (
+            <a
+              key={contact.label}
+              href={contact.href}
+              target={contact.external ? "_blank" : undefined}
+              rel={contact.external ? "noreferrer" : undefined}
+              className="reveal group border border-[#CFDDCB] bg-[#E9F0E5] p-7 transition-colors hover:border-gold hover:bg-sand-dark"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <p className="font-mono-eyebrow text-gold">{contact.label}</p>
+                <span className="text-gold transition-transform group-hover:translate-x-1">↗</span>
               </div>
-            </details>
+              <p className="mt-8 break-words font-display text-xl font-semibold text-ink">{contact.value}</p>
+            </a>
           ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FinalCTA() {
-  return (
-    <section
-      id="contato"
-      className="py-28"
-      style={{
-        background:
-          "linear-gradient(135deg, oklch(0.93 0.03 80) 0%, oklch(0.85 0.07 78) 55%, oklch(0.76 0.11 78) 100%)",
-      }}
-    >
-      <div className="mx-auto max-w-3xl px-6 text-center">
-        <p className="font-mono-eyebrow reveal text-ink-deep/70">/ vamos começar</p>
-        <h2 className="font-display reveal mt-6 text-4xl font-semibold leading-tight text-ink-deep md:text-6xl">
-          ClickIn. Transformando ideias em resultados.
-        </h2>
-        <p className="reveal mt-6 text-lg text-ink-deep/75">
-          Conta pra gente o que você precisa. Resposta em menos de 48h.
-        </p>
-        <div className="reveal mt-10">
-          <a
-            href={WA_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-ink-deep px-8 py-4 text-base font-medium text-sand transition-transform hover:scale-[1.02] hover:bg-ink"
-          >
-            Fale com a gente <span aria-hidden>→</span>
-          </a>
         </div>
       </div>
     </section>
@@ -470,12 +383,11 @@ function Index() {
       <Header />
       <main>
         <Hero />
-        <Services />
-        <TechBridge />
-        <Integration />
         <About />
-        <FAQ />
-        <FinalCTA />
+        <Projects />
+        <Technologies />
+        <Process />
+        <Contact />
       </main>
       <Footer />
       <FloatingWhats />
