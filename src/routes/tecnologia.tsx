@@ -63,13 +63,13 @@ function BrowserBuild() {
   return (
     <div
       aria-hidden
-      className="w-full overflow-hidden rounded-xl border border-[#D8CBB0] bg-[#F2ECE1] shadow-lg shadow-black/5"
+      className="w-full overflow-hidden rounded-xl border border-[#CFDDCB] bg-[#E9F0E5] shadow-lg shadow-black/5"
     >
-      <div className="flex items-center gap-2 border-b border-[#D8CBB0] bg-sand-dark px-3 py-2">
+      <div className="flex items-center gap-2 border-b border-[#CFDDCB] bg-sand-dark px-3 py-2">
         <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-        <span className="ml-3 flex-1 truncate rounded-full bg-[#F2ECE1] px-3 py-1 font-mono text-[11px] text-ink/50">
+        <span className="ml-3 flex-1 truncate rounded-full bg-[#E9F0E5] px-3 py-1 font-mono text-[11px] text-ink/50">
           seusite.com.br
         </span>
       </div>
@@ -85,7 +85,7 @@ function BrowserBuild() {
               style={{
                 gridColumn: `${b.x} / span ${b.w}`,
                 gridRow: `${b.y} / span ${b.h}`,
-                background: i < active ? (i === 0 ? "var(--gold)" : "rgba(26,24,22,0.14)") : "rgba(26,24,22,0.04)",
+                background: i < active ? (i === 0 ? "var(--gold)" : "rgba(19,50,31,0.14)") : "rgba(19,50,31,0.04)",
                 opacity: i < active ? 1 : 0.6,
                 transform: i === active - 1 ? "scale(1.02)" : "scale(1)",
               }}
@@ -114,7 +114,7 @@ function TechHero() {
         className="pointer-events-none absolute inset-0 opacity-[0.07]"
         style={{
           backgroundImage:
-            "linear-gradient(to right, #F2ECE1 1px, transparent 1px), linear-gradient(to bottom, #F2ECE1 1px, transparent 1px)",
+            "linear-gradient(to right, #E9F0E5 1px, transparent 1px), linear-gradient(to bottom, #E9F0E5 1px, transparent 1px)",
           backgroundSize: "40px 40px",
         }}
       />
@@ -181,7 +181,7 @@ function TechServices() {
     },
   ];
   return (
-    <section className="border-b border-[#D8CBB0] bg-sand-dark py-28">
+    <section className="border-b border-[#CFDDCB] bg-sand-dark py-28">
       <div className="mx-auto max-w-6xl px-6">
         <div className="reveal mb-16 max-w-2xl">
           <Eyebrow>o que construímos</Eyebrow>
@@ -193,11 +193,11 @@ function TechServices() {
             mês.
           </p>
         </div>
-        <div className="grid gap-px bg-[#D8CBB0] md:grid-cols-2">
+        <div className="grid gap-px bg-[#CFDDCB] md:grid-cols-2">
           {items.map((it) => (
             <article
               key={it.n}
-              className="reveal bg-sand-dark p-8 transition-all duration-300 hover:bg-[#F2ECE1] hover:pl-11"
+              className="reveal bg-sand-dark p-8 transition-all duration-300 hover:bg-[#E9F0E5] hover:pl-11"
             >
               <div className="font-mono-eyebrow text-gold">{it.n}</div>
               <h3 className="font-display mt-6 text-xl font-semibold text-ink md:text-2xl">{it.t}</h3>
@@ -220,8 +220,8 @@ function BeforeAfter() {
             A diferença aparece na operação.
           </h2>
         </div>
-        <div className="grid gap-px overflow-hidden rounded-xl bg-[#D8CBB0] md:grid-cols-2">
-          <div className="reveal bg-[#EDE9E2] p-10">
+        <div className="grid gap-px overflow-hidden rounded-xl bg-[#CFDDCB] md:grid-cols-2">
+          <div className="reveal bg-[#E1E9DC] p-10">
             <p className="font-mono-eyebrow text-ink/45">antes</p>
             <ul className="mt-6 space-y-4 text-ink/55">
               {[
@@ -241,7 +241,7 @@ function BeforeAfter() {
             className="reveal relative p-10"
             style={{
               background:
-                "linear-gradient(135deg, oklch(0.92 0.04 80) 0%, oklch(0.85 0.07 78) 100%)",
+                "linear-gradient(135deg, oklch(0.92 0.04 150) 0%, oklch(0.85 0.07 148) 100%)",
             }}
           >
             <p className="font-mono-eyebrow text-ink-deep/70">depois da clickin</p>
@@ -278,7 +278,7 @@ function Process() {
     { n: "04", t: "Entrega", d: "Publicamos, documentamos e treinamos o uso. Depois do go live, seguimos por perto." },
   ];
   return (
-    <section className="border-y border-[#D8CBB0] bg-sand-dark py-28">
+    <section className="border-y border-[#CFDDCB] bg-sand-dark py-28">
       <div className="mx-auto max-w-6xl px-6">
         <div className="reveal mb-16 max-w-2xl">
           <Eyebrow>como trabalhamos</Eyebrow>
@@ -286,9 +286,9 @@ function Process() {
             Da ideia ao que está no ar.
           </h2>
         </div>
-        <div className="grid gap-px bg-[#D8CBB0] md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-px bg-[#CFDDCB] md:grid-cols-2 lg:grid-cols-4">
           {steps.map((p, i) => (
-            <article key={p.n} className="reveal bg-sand-dark p-8 transition-colors hover:bg-[#F2ECE1]">
+            <article key={p.n} className="reveal bg-sand-dark p-8 transition-colors hover:bg-[#E9F0E5]">
               <div className="flex items-center justify-between">
                 <span className="font-mono-eyebrow text-gold">{p.n}</span>
                 {i < steps.length - 1 && (
@@ -311,7 +311,7 @@ function TechCTA() {
       className="py-28"
       style={{
         background:
-          "linear-gradient(135deg, oklch(0.93 0.03 80) 0%, oklch(0.85 0.07 78) 55%, oklch(0.76 0.11 78) 100%)",
+          "linear-gradient(135deg, oklch(0.93 0.03 150) 0%, oklch(0.85 0.07 148) 55%, oklch(0.76 0.11 148) 100%)",
       }}
     >
       <div className="mx-auto max-w-3xl px-6 text-center">

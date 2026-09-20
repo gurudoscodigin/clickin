@@ -3,8 +3,10 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { PixelArrow } from "@/components/PixelCursor";
 
 export const WHATSAPP = "5519974169516";
+export const INSTAGRAM_HANDLE = "@clickin";
+export const INSTAGRAM_URL = "https://instagram.com/clickin";
 export const WA_URL = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(
-  "Olá! Vim pelo site da ClickIn e gostaria de falar com a equipe.",
+  "Olá, Gabriel! Vi seu portfólio e gostaria de conversar sobre um projeto.",
 )}`;
 export const EMAIL = "comercialclickin@outlook.com";
 
@@ -98,7 +100,7 @@ export function Header({ onDark = false }: { onDark?: boolean }) {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "backdrop-blur-md bg-[oklch(0.945_0.018_80_/_0.78)] border-b border-border/60"
+          ? "backdrop-blur-md bg-[oklch(0.975_0.008_150_/_0.78)] border-b border-border/60"
           : "bg-transparent"
       }`}
     >
@@ -111,14 +113,14 @@ export function Header({ onDark = false }: { onDark?: boolean }) {
             dark ? "text-sand/75" : "text-ink/80"
           }`}
         >
-          <Link to="/" hash="servicos" className={`transition-colors ${dark ? "hover:text-sand" : "hover:text-ink"}`}>
-            O que fazemos
-          </Link>
-          <Link to="/tecnologia" className={`transition-colors ${dark ? "hover:text-sand" : "hover:text-ink"}`}>
-            Tecnologia
-          </Link>
           <Link to="/" hash="sobre" className={`transition-colors ${dark ? "hover:text-sand" : "hover:text-ink"}`}>
             Sobre
+          </Link>
+          <Link to="/" hash="projetos" className={`transition-colors ${dark ? "hover:text-sand" : "hover:text-ink"}`}>
+            Projetos
+          </Link>
+          <Link to="/" hash="processo" className={`transition-colors ${dark ? "hover:text-sand" : "hover:text-ink"}`}>
+            Processo
           </Link>
           <Link to="/" hash="contato" className={`transition-colors ${dark ? "hover:text-sand" : "hover:text-ink"}`}>
             Contato
@@ -132,7 +134,7 @@ export function Header({ onDark = false }: { onDark?: boolean }) {
             dark ? "bg-gold text-ink-deep hover:bg-gold-soft" : "bg-ink text-sand hover:bg-ink-deep"
           }`}
         >
-          fale com a gente <span aria-hidden>→</span>
+          vamos conversar <span aria-hidden>→</span>
         </a>
       </div>
     </header>
@@ -150,25 +152,25 @@ export function Footer() {
             Click<span className="text-gold">In</span>
           </div>
           <p className="mt-4 max-w-xs text-sand/70">
-            Agência de marketing com braço tech. Estratégia, conteúdo e tecnologia no mesmo lugar.
+            Portfólio de Gabriel, fundador da click.in. Produtos próprios, sistemas e automações.
           </p>
         </div>
         <div>
           <p className="font-mono-eyebrow text-sand/50">navegar</p>
           <ul className="mt-4 space-y-2 text-sand/85">
             <li>
-              <Link className="transition-colors hover:text-gold" to="/" hash="servicos">
-                O que fazemos
-              </Link>
-            </li>
-            <li>
-              <Link className="transition-colors hover:text-gold" to="/tecnologia">
-                Braço tech
-              </Link>
-            </li>
-            <li>
               <Link className="transition-colors hover:text-gold" to="/" hash="sobre">
                 Sobre
+              </Link>
+            </li>
+            <li>
+              <Link className="transition-colors hover:text-gold" to="/" hash="projetos">
+                Projetos
+              </Link>
+            </li>
+            <li>
+              <Link className="transition-colors hover:text-gold" to="/" hash="processo">
+                Processo
               </Link>
             </li>
             <li>
@@ -189,6 +191,11 @@ export function Footer() {
             <li>
               <a className="transition-colors hover:text-gold" href={`mailto:${EMAIL}`}>
                 {EMAIL}
+              </a>
+            </li>
+            <li>
+              <a className="transition-colors hover:text-gold" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
+                Instagram · {INSTAGRAM_HANDLE}
               </a>
             </li>
           </ul>
@@ -314,7 +321,7 @@ export function MetricCard({
 }) {
   return (
     <div
-      className={`rounded-[6px] border border-[#D8CBB0] bg-[#F2ECE1] px-4 py-3 shadow-md shadow-black/5 ${className}`}
+      className={`rounded-[6px] border border-[#CFDDCB] bg-[#E9F0E5] px-4 py-3 shadow-md shadow-black/5 ${className}`}
     >
       <div className="flex items-center gap-3">
         <div>
@@ -339,7 +346,7 @@ export function MetricCard({
 export function LeadNotification({ className = "" }: { className?: string }) {
   return (
     <div
-      className={`flex items-center gap-3 rounded-[6px] border border-[#D8CBB0] bg-[#F2ECE1] px-4 py-3 shadow-md shadow-black/5 ${className}`}
+      className={`flex items-center gap-3 rounded-[6px] border border-[#CFDDCB] bg-[#E9F0E5] px-4 py-3 shadow-md shadow-black/5 ${className}`}
     >
       <span className="inline-flex h-8 w-8 flex-none items-center justify-center rounded-full bg-[#25D366]/15 text-[#128C4B]">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden>
