@@ -26,6 +26,8 @@ export const Route = createFileRoute("/tecnologia")({
         content:
           "Sites de alta performance, landing pages que convertem e softwares personalizados para automatizar processos e acelerar o crescimento.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: TechPage,
