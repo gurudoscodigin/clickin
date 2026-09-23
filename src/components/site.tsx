@@ -131,7 +131,7 @@ export function Header({ onDark = false }: { onDark?: boolean }) {
           target="_blank"
           rel="noreferrer"
           className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-            dark ? "bg-gold text-ink-deep hover:bg-gold-soft" : "bg-ink text-sand hover:bg-ink-deep"
+            dark ? "bg-sand text-ink-deep hover:bg-white" : "bg-ink text-sand hover:bg-ink/85"
           }`}
         >
           vamos conversar <span aria-hidden>→</span>
@@ -149,7 +149,7 @@ export function Footer() {
         <div>
           <div className="inline-flex items-center gap-2 font-display text-2xl font-semibold">
             <PixelArrow size={22} color="var(--sand)" />
-            Click<span className="text-gold">In</span>
+            Click<span className="text-gold-soft">In</span>
           </div>
           <p className="mt-4 max-w-xs text-sand/70">
             Portfólio de Gabriel, fundador da click.in. Produtos próprios, sistemas e automações.
@@ -159,22 +159,22 @@ export function Footer() {
           <p className="font-mono-eyebrow text-sand/50">navegar</p>
           <ul className="mt-4 space-y-2 text-sand/85">
             <li>
-              <Link className="transition-colors hover:text-gold" to="/" hash="sobre">
+              <Link className="transition-colors hover:text-gold-soft" to="/" hash="sobre">
                 Sobre
               </Link>
             </li>
             <li>
-              <Link className="transition-colors hover:text-gold" to="/" hash="projetos">
+              <Link className="transition-colors hover:text-gold-soft" to="/" hash="projetos">
                 Projetos
               </Link>
             </li>
             <li>
-              <Link className="transition-colors hover:text-gold" to="/" hash="processo">
+              <Link className="transition-colors hover:text-gold-soft" to="/" hash="processo">
                 Processo
               </Link>
             </li>
             <li>
-              <Link className="transition-colors hover:text-gold" to="/" hash="contato">
+              <Link className="transition-colors hover:text-gold-soft" to="/" hash="contato">
                 Contato
               </Link>
             </li>
@@ -184,17 +184,17 @@ export function Footer() {
           <p className="font-mono-eyebrow text-sand/50">contato</p>
           <ul className="mt-4 space-y-2 text-sand/85">
             <li>
-              <a className="transition-colors hover:text-gold" href={WA_URL} target="_blank" rel="noreferrer">
+              <a className="transition-colors hover:text-gold-soft" href={WA_URL} target="_blank" rel="noreferrer">
                 WhatsApp →
               </a>
             </li>
             <li>
-              <a className="transition-colors hover:text-gold" href={`mailto:${EMAIL}`}>
+              <a className="transition-colors hover:text-gold-soft" href={`mailto:${EMAIL}`}>
                 {EMAIL}
               </a>
             </li>
             <li>
-              <a className="transition-colors hover:text-gold" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
+              <a className="transition-colors hover:text-gold-soft" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
                 Instagram · {INSTAGRAM_HANDLE}
               </a>
             </li>
@@ -225,90 +225,6 @@ export function FloatingWhats() {
   );
 }
 
-/* ---------------- Decorative elements ---------------- */
-
-type TermLine = { text: string; tone: "muted" | "gold" | "base" | "ok" };
-
-export function CampaignTerminal({
-  title = "campanha.sh",
-  lines,
-}: {
-  title?: string;
-  lines: TermLine[];
-}) {
-  const total = lines.reduce((n, l) => n + l.text.length, 0);
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    const reduced =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) {
-      setCount(total);
-      return;
-    }
-    let n = 0;
-    let hold = 0;
-    const id = window.setInterval(() => {
-      if (n < total) {
-        n += 1;
-        setCount(n);
-      } else {
-        hold += 1;
-        if (hold > 45) {
-          n = 0;
-          hold = 0;
-          setCount(0);
-        }
-      }
-    }, 45);
-    return () => window.clearInterval(id);
-  }, [total]);
-
-  let remaining = count;
-  const rows = lines.map((l) => {
-    const take = Math.max(0, Math.min(l.text.length, remaining));
-    remaining -= take;
-    return { ...l, shown: l.text.slice(0, take), full: take >= l.text.length };
-  });
-  const activeIdx = Math.max(0, rows.findIndex((r) => !r.full));
-
-  const toneClass = (tone: TermLine["tone"]) =>
-    tone === "gold"
-      ? "text-[color:var(--gold)]"
-      : tone === "muted"
-        ? "text-white/40"
-        : tone === "ok"
-          ? "text-[#5ce08a]"
-          : "text-white/85";
-
-  return (
-    <div
-      aria-hidden
-      className="w-full max-w-md overflow-hidden rounded-lg border border-ink/15 bg-[color:var(--ink-deep)] font-mono text-[12px] leading-[1.8] shadow-lg"
-    >
-      <div className="flex items-center gap-2 border-b border-white/10 px-3 py-2">
-        <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
-        <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
-        <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-        <span className="ml-2 text-[11px] text-white/50">{title}</span>
-      </div>
-      <div className="min-h-[190px] px-4 py-3">
-        {rows.map((r, i) => (
-          <div key={i} className="flex gap-3">
-            <span className="w-4 flex-none select-none text-right text-white/25">{i + 1}</span>
-            <div className={toneClass(r.tone)}>
-              {r.shown}
-              {i === (activeIdx === -1 ? rows.length - 1 : activeIdx) && (
-                <span className="ml-0.5 inline-block h-3 w-1.5 translate-y-[2px] animate-pulse bg-gold align-middle" />
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 export function MetricCard({
   label,
@@ -340,72 +256,5 @@ export function MetricCard({
         </svg>
       </div>
     </div>
-  );
-}
-
-export function LeadNotification({ className = "" }: { className?: string }) {
-  return (
-    <div
-      className={`flex items-center gap-3 rounded-[6px] border border-[#CFDDCB] bg-[#E9F0E5] px-4 py-3 shadow-md shadow-black/5 ${className}`}
-    >
-      <span className="inline-flex h-8 w-8 flex-none items-center justify-center rounded-full bg-[#25D366]/15 text-[#128C4B]">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden>
-          <path d="M4 4h16v11H7l-3 3V4z" />
-        </svg>
-      </span>
-      <div>
-        <p className="font-mono-eyebrow text-ink/55">notificação</p>
-        <p className="text-sm font-medium text-ink">Novo lead recebido</p>
-      </div>
-      <span className="status-dot-live ml-2 inline-block h-2 w-2 flex-none rounded-full bg-gold" />
-    </div>
-  );
-}
-
-export function RotatingCommands({ items }: { items: string[] }) {
-  const [i, setI] = useState(0);
-  const [chars, setChars] = useState(0);
-  const [phase, setPhase] = useState<"type" | "hold" | "erase">("type");
-
-  useEffect(() => {
-    const reduced =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) {
-      setChars(items[0].length);
-      return;
-    }
-    const id = window.setInterval(() => {
-      setChars((c) => {
-        const text = items[i];
-        if (phase === "type") {
-          if (c < text.length) return c + 1;
-          setPhase("hold");
-          return c;
-        }
-        if (phase === "erase") {
-          if (c > 0) return c - 1;
-          setI((n) => (n + 1) % items.length);
-          setPhase("type");
-          return 0;
-        }
-        return c;
-      });
-    }, 70);
-    return () => window.clearInterval(id);
-  }, [items, i, phase]);
-
-  useEffect(() => {
-    if (phase !== "hold") return;
-    const t = window.setTimeout(() => setPhase("erase"), 1200);
-    return () => window.clearTimeout(t);
-  }, [phase]);
-
-  return (
-    <span className="inline-flex items-center font-mono text-sm text-ink/70">
-      <span className="mr-2 text-gold">$</span>
-      {items[i].slice(0, chars)}
-      <span className="ml-0.5 inline-block h-3.5 w-1.5 animate-pulse bg-gold align-middle" />
-    </span>
   );
 }
