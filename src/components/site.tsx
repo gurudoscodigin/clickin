@@ -85,8 +85,38 @@ function Logo({ collapsed }: { collapsed: boolean }) {
   );
 }
 
+function NavLink({
+  hash,
+  dark,
+  onClick,
+  children,
+}: {
+  hash: string;
+  dark: boolean;
+  onClick?: () => void;
+  children: ReactNode;
+}) {
+  return (
+    <Link
+      to="/"
+      hash={hash}
+      onClick={onClick}
+      className={`group relative py-1 transition-colors ${dark ? "hover:text-sand" : "hover:text-ink"}`}
+    >
+      {children}
+      <span
+        aria-hidden
+        className={`absolute -bottom-0.5 left-0 h-px w-0 transition-all duration-300 group-hover:w-full ${
+          dark ? "bg-sand" : "bg-ink"
+        }`}
+      />
+    </Link>
+  );
+}
+
 export function Header({ onDark = false }: { onDark?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
     onScroll();
@@ -94,18 +124,31 @@ export function Header({ onDark = false }: { onDark?: boolean }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
   const dark = onDark && !scrolled;
+  const items: Array<{ hash: string; label: string }> = [
+    { hash: "sobre", label: "Sobre" },
+    { hash: "projetos", label: "Projetos" },
+    { hash: "processo", label: "Processo" },
+    { hash: "contato", label: "Contato" },
+  ];
 
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled
+        scrolled || menuOpen
           ? "backdrop-blur-md bg-[oklch(0.975_0.008_150_/_0.78)] border-b border-border/60"
           : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <div className={dark ? "[&_.text-ink]:text-sand" : ""}>
+        <div className={dark && !menuOpen ? "[&_.text-ink]:text-sand" : ""}>
           <Logo collapsed={scrolled} />
         </div>
         <nav
@@ -113,29 +156,74 @@ export function Header({ onDark = false }: { onDark?: boolean }) {
             dark ? "text-sand/75" : "text-ink/80"
           }`}
         >
-          <Link to="/" hash="sobre" className={`transition-colors ${dark ? "hover:text-sand" : "hover:text-ink"}`}>
-            Sobre
-          </Link>
-          <Link to="/" hash="projetos" className={`transition-colors ${dark ? "hover:text-sand" : "hover:text-ink"}`}>
-            Projetos
-          </Link>
-          <Link to="/" hash="processo" className={`transition-colors ${dark ? "hover:text-sand" : "hover:text-ink"}`}>
-            Processo
-          </Link>
-          <Link to="/" hash="contato" className={`transition-colors ${dark ? "hover:text-sand" : "hover:text-ink"}`}>
-            Contato
-          </Link>
+          {items.map((item) => (
+            <NavLink key={item.hash} hash={item.hash} dark={dark}>
+              {item.label}
+            </NavLink>
+          ))}
         </nav>
-        <a
-          href={WA_URL}
-          target="_blank"
-          rel="noreferrer"
-          className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-            dark ? "bg-sand text-ink-deep hover:bg-white" : "bg-ink text-sand hover:bg-ink/85"
-          }`}
-        >
-          vamos conversar <span aria-hidden>→</span>
-        </a>
+        <div className="flex items-center gap-2">
+          <a
+            href={WA_URL}
+            target="_blank"
+            rel="noreferrer"
+            className={`hidden items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors sm:inline-flex ${
+              dark ? "bg-sand text-ink-deep hover:bg-white" : "bg-ink text-sand hover:bg-ink/85"
+            }`}
+          >
+            vamos conversar <span aria-hidden>→</span>
+          </a>
+          <button
+            type="button"
+            aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((v) => !v)}
+            className={`relative inline-flex h-10 w-10 flex-none items-center justify-center rounded-full transition-colors md:hidden ${
+              dark && !menuOpen ? "text-sand" : "text-ink"
+            }`}
+          >
+            <span
+              aria-hidden
+              className={`absolute h-px w-5 bg-current transition-transform duration-300 ${
+                menuOpen ? "rotate-45" : "-translate-y-1.5"
+              }`}
+            />
+            <span
+              aria-hidden
+              className={`absolute h-px w-5 bg-current transition-transform duration-300 ${
+                menuOpen ? "-rotate-45" : "translate-y-1.5"
+              }`}
+            />
+          </button>
+        </div>
+      </div>
+      <div
+        className={`overflow-hidden border-t border-ink/10 transition-[max-height,opacity] duration-300 md:hidden ${
+          menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <nav className="mx-auto flex max-w-6xl flex-col gap-1 px-6 py-4 text-ink">
+          {items.map((item) => (
+            <Link
+              key={item.hash}
+              to="/"
+              hash={item.hash}
+              onClick={() => setMenuOpen(false)}
+              className="border-b border-ink/10 py-3 text-base font-medium last:border-b-0"
+            >
+              {item.label}
+            </Link>
+          ))}
+          <a
+            href={WA_URL}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => setMenuOpen(false)}
+            className="mt-4 inline-flex items-center justify-center gap-1.5 rounded-full bg-ink px-4 py-3 text-sm font-medium text-sand"
+          >
+            vamos conversar <span aria-hidden>→</span>
+          </a>
+        </nav>
       </div>
     </header>
   );
