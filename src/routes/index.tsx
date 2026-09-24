@@ -40,19 +40,20 @@ function Hero() {
       <div className="relative mx-auto max-w-6xl px-6">
         <div className="max-w-4xl">
           <p className="font-mono-eyebrow reveal text-gold">gabriel · fundador da click.in</p>
-          <h1 className="font-display reveal mt-7 text-5xl font-semibold leading-[1.04] text-ink md:text-7xl">
+          <h1 className="font-display reveal mt-7 text-5xl font-semibold leading-[1.03] tracking-tight text-ink md:text-7xl">
             Desenvolvimento e automação de quem já colocou <span className="shine-text">produto próprio</span> no ar
           </h1>
-          <p className="reveal mt-8 max-w-3xl text-lg leading-relaxed text-ink/75 md:text-xl">
+          <p className="reveal mt-8 max-w-2xl text-lg leading-relaxed text-ink/70 md:text-xl">
             Sou Gabriel, fundador da click.in. Construo sistemas, automações e plataformas do zero,
             incluindo os meus próprios produtos, do banco de dados até o cliente final pagando por eles.
           </p>
           <div className="reveal mt-10 flex flex-wrap gap-3">
             <a
               href="#projetos"
-              className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 font-medium text-sand transition-colors hover:bg-ink/85"
+              className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 font-medium text-sand transition-colors hover:bg-ink/85"
             >
-              Ver projetos <span aria-hidden>→</span>
+              Ver projetos
+              <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
             </a>
             <a
               href={WA_URL}
@@ -71,12 +72,21 @@ function Hero() {
             ["02", "Código e automação"],
             ["03", "Entrega ponta a ponta"],
           ].map(([number, label]) => (
-            <div key={number} className="bg-sand px-5 py-4">
+            <div key={number} className="group bg-sand px-5 py-4 transition-colors duration-300 hover:bg-white">
               <span className="font-mono text-xs text-gold">{number}</span>
               <p className="mt-1 text-sm font-medium text-ink">{label}</p>
             </div>
           ))}
         </div>
+
+        <a
+          href="#sobre"
+          aria-label="Rolar para a seção Sobre"
+          className="reveal absolute bottom-0 left-6 hidden items-center gap-2 pb-2 text-xs text-ink/40 transition-colors hover:text-ink/70 md:inline-flex"
+        >
+          <span className="font-mono-eyebrow">rolar</span>
+          <span aria-hidden className="animate-bounce">↓</span>
+        </a>
       </div>
     </section>
   );
@@ -84,9 +94,10 @@ function Hero() {
 
 function AboutCard({ label, title, children }: { label: string; title: string; children: ReactNode }) {
   return (
-    <article className="reveal border border-ink/15 bg-white p-8 md:p-10">
+    <article className="reveal group border border-ink/15 bg-white p-8 transition-colors duration-300 hover:border-ink/40 md:p-10">
       <p className="font-mono-eyebrow text-gold">{label}</p>
-      <h3 className="font-display mt-5 text-4xl font-semibold text-ink">{title}</h3>
+      <h3 className="font-display mt-5 text-4xl font-semibold tracking-tight text-ink">{title}</h3>
+      <div className="mt-6 h-px w-10 bg-ink/15 transition-all duration-300 group-hover:w-16 group-hover:bg-gold" />
       <div className="mt-6 space-y-4 leading-relaxed text-ink/75">{children}</div>
     </article>
   );
@@ -98,7 +109,7 @@ function About() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="reveal mb-14 max-w-3xl">
           <Eyebrow>duas frentes, uma visão</Eyebrow>
-          <h2 className="font-display mt-5 text-4xl font-semibold text-ink md:text-5xl">
+          <h2 className="font-display mt-5 text-4xl font-semibold tracking-tight text-ink md:text-5xl">
             Quem constrói e a empresa que transforma ideias em produto.
           </h2>
         </div>
@@ -179,6 +190,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           : "border-ink/15 bg-white text-ink"
       }`}
     >
+      {project.featured && (
+        <span aria-hidden className="absolute inset-x-8 top-0 h-px bg-sand/40 md:inset-x-10" />
+      )}
       <div className="flex flex-wrap items-start justify-between gap-4">
         <span className={`font-mono text-xs ${project.featured ? "text-gold-soft" : "text-gold"}`}>
           {String(index + 1).padStart(2, "0")}
@@ -189,7 +203,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           </span>
         )}
       </div>
-      <h3 className="font-display mt-10 text-3xl font-semibold md:text-4xl">{project.title}</h3>
+      <h3 className="font-display mt-10 text-3xl font-semibold tracking-tight md:text-4xl">{project.title}</h3>
       <p className={`mt-5 max-w-3xl leading-relaxed ${project.featured ? "text-sand/70" : "text-ink/70"}`}>
         {project.description}
       </p>
@@ -231,7 +245,7 @@ function Projects() {
         <div className="reveal mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-3xl">
             <Eyebrow>projetos</Eyebrow>
-            <h2 className="font-display mt-5 text-4xl font-semibold text-ink md:text-5xl">
+            <h2 className="font-display mt-5 text-4xl font-semibold tracking-tight text-ink md:text-5xl">
               Produtos e sistemas que saíram da ideia e viraram operação.
             </h2>
           </div>
@@ -268,7 +282,7 @@ function Technologies() {
             <span aria-hidden className="inline-block h-px w-8 bg-sand" />
             tecnologias
           </p>
-          <h2 className="font-display mt-5 text-4xl font-semibold md:text-5xl">
+          <h2 className="font-display mt-5 text-4xl font-semibold tracking-tight md:text-5xl">
             A ferramenta certa para cada parte do produto.
           </h2>
           <p className="mt-6 text-lg text-sand/65">
@@ -277,7 +291,7 @@ function Technologies() {
         </div>
         <div className="mt-14 grid border-l border-t border-sand/15 sm:grid-cols-2 lg:grid-cols-4">
           {technologyGroups.map(([title, tools], index) => (
-            <article key={title} className="reveal min-h-44 border-r border-b border-sand/15 p-6">
+            <article key={title} className="reveal min-h-44 border-r border-b border-sand/15 p-6 transition-colors duration-300 hover:bg-white/[0.03]">
               <span className="font-mono text-xs text-gold-soft">{String(index + 1).padStart(2, "0")}</span>
               <h3 className="font-display mt-7 text-xl font-semibold">{title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-sand/60">{tools}</p>
@@ -303,13 +317,13 @@ function Process() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="reveal mb-14 max-w-3xl">
           <Eyebrow>processo</Eyebrow>
-          <h2 className="font-display mt-5 text-4xl font-semibold text-ink md:text-5xl">
+          <h2 className="font-display mt-5 text-4xl font-semibold tracking-tight text-ink md:text-5xl">
             Da primeira conversa ao produto em uso.
           </h2>
         </div>
         <div className="grid gap-px bg-ink/15 sm:grid-cols-2 lg:grid-cols-5">
           {steps.map(([title, description], index) => (
-            <article key={title} className="reveal min-h-64 bg-sand-dark p-7 transition-colors hover:bg-white">
+            <article key={title} className="reveal min-h-64 bg-sand-dark p-7 transition-colors hover:bo-white">
               <div className="flex items-center justify-between">
                 <span className="font-mono-eyebrow text-gold">{String(index + 1).padStart(2, "0")}</span>
                 {index < steps.length - 1 && <span className="hidden text-gold/60 lg:block">→</span>}
@@ -335,7 +349,7 @@ function Contact() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="reveal max-w-3xl">
           <Eyebrow>contato</Eyebrow>
-          <h2 className="font-display mt-5 text-4xl font-semibold text-ink md:text-6xl">
+          <h2 className="font-display mt-5 text-4xl font-semibold tracking-tight text-ink md:text-6xl">
             Tem uma ideia, um gargalo ou um produto para colocar no ar?
           </h2>
         </div>
